@@ -1,10 +1,3 @@
-# Pull voting data from csv file
-# Create list of dictionaries [{voter: ballot_ID, county: county_name, candidate: candiate_name}]
-# Determine the total number of voters by county
-# Determine the percentage of votes each candiate won by county
-# Determine statewide total for voters
-# Determine statewide winner for the election based on popular vote
-
 # Adding dependencies
 import csv
 import os
