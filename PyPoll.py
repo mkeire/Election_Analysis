@@ -1,10 +1,3 @@
-# Import the datetime dependency.
-#import datetime
-# Use the now() attribute on the datetime class to get the present time.
-#now = datetime.datetime.now()
-# Print the present time.
-#print("The time right now is,", now)
-
 # Pull voting data from csv file
 # Create list of dictionaries [{voter: ballot_ID, county: county_name, candidate: candiate_name}]
 # Determine the total number of voters by county
@@ -48,24 +41,37 @@ with open(file_load) as election_data:
             # Tracking votes for each candidate
             candidate_votes[candidate_name] = 0 
             # Tallying Votes
-        candidate_votes[candidate_name] += 1   
+        candidate_votes[candidate_name] += 1 
+    with open(file_save, "w") as election_analysis:
+        election_results = (
+        f"Election Results\n"
+        f"-------------------------\n"
+        f"Total Votes: {total_votes:,}\n"
+        f"-------------------------\n")
+        print(election_results, end="")
+        # Saving to txt file
+        election_analysis.write(election_results)
 # Determine the percentage of votes for each candidate by looping through the counts.
 # Iterate through the candidate list to get to vote count
-for candidate in candidate_votes:
-    votes = candidate_votes[candidate]
-    vote_percentage = (votes) / (total_votes) * 100
-    # Print each candidate, their voter count, and percentage to the
-    print(f"{candidate}: {float(vote_percentage):.1f}% ({votes:,})\n")
-    # Logic for election printout
-    if (votes > winning_count) and (vote_percentage > winning_percentage):
-        winning_count = votes
-        winning_candidate = candidate
-        winning_percentage = vote_percentage
-# Formatting for election printout
-winning_candidate_summary = (
-    f"-------------------------\n"
-    f"Winner: {winning_candidate}\n"
-    f"Winning Vote Count: {winning_count:,}\n"
-    f"Winning Percentage: {winning_percentage:.1f}%\n"
-    f"-------------------------\n")
-print(winning_candidate_summary)
+        for candidate in candidate_votes:
+            votes = candidate_votes[candidate]
+            vote_percentage = (votes) / (total_votes) * 100
+            candidate_results = (f"{candidate}: {float(vote_percentage):.1f}% ({votes:,})\n")
+            print(candidate_results)
+            # Save results to Election_Analysis.txt
+            election_analysis.write(candidate_results)
+            # Logic for election printout
+            if (votes > winning_count) and (vote_percentage > winning_percentage):
+                winning_count = votes
+                winning_candidate = candidate
+                winning_percentage = vote_percentage
+            # Formatting for election printout
+            winning_candidate_summary = (
+            f"-------------------------\n"
+            f"Winner: {winning_candidate}\n"
+            f"Winning Vote Count: {winning_count:,}\n"
+            f"Winning Percentage: {winning_percentage:.1f}%\n"
+            f"-------------------------\n")
+        print(winning_candidate_summary)
+            # Saving to txt file
+        election_analysis.write(winning_candidate_summary)
