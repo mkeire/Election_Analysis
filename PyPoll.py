@@ -51,4 +51,12 @@ for candidate in candidate_votes:
     # Vote percentage calculation
     vote_percentage = (votes) / (total_votes) * 100
     # Print candidate's name and vote percentage
-    print(f"{candidate}: received {(float(vote_percentage)):1f}% of the vote.")
+    print(f"{candidate}: received {(float(vote_percentage)):.1f}% of the vote.")
+
+winning_candidate_summary = (
+    f"-------------------------\n"
+    f"Winner: {winning_candidate}\n"
+    f"Winning Vote Count: {winning_count:,}\n"
+    f"Winning Percentage: {winning_percentage:.1f}%\n"
+    f"-------------------------\n")
+print(winning_candidate_summary)
