@@ -20,8 +20,14 @@ file_load = os.path.join("Resources/election_results.csv")
 # Assign a variable to save the file to a path.
 file_save = os.path.join("analysis", "election_analysis.txt")
 
+#Initalizing candidate name's variable
+winning_candidate = ""
 # Setting Vote Accumulator to zero
 total_votes = 0
+# Setting Winning Accumulator to zero
+winning_count = 0
+# Setting Winning Percentage Accumulator to zero
+winning_percentage = 0
 # Empty List for candidates' names
 candidate_options = []
 # Empty Dictionary for candidate:votes
@@ -43,16 +49,19 @@ with open(file_load) as election_data:
             candidate_votes[candidate_name] = 0 
             # Tallying Votes
         candidate_votes[candidate_name] += 1   
-    # Determine the percentage of votes for each candidate by looping through the counts.
+# Determine the percentage of votes for each candidate by looping through the counts.
 # Iterate through the candidate list to get to vote count
 for candidate in candidate_votes:
-# Get candidate's vote count
     votes = candidate_votes[candidate]
-    # Vote percentage calculation
     vote_percentage = (votes) / (total_votes) * 100
-    # Print candidate's name and vote percentage
-    print(f"{candidate}: received {(float(vote_percentage)):.1f}% of the vote.")
-
+    # Print each candidate, their voter count, and percentage to the
+    print(f"{candidate}: {float(vote_percentage):.1f}% ({votes:,})\n")
+    # Logic for election printout
+    if (votes > winning_count) and (vote_percentage > winning_percentage):
+        winning_count = votes
+        winning_candidate = candidate
+        winning_percentage = vote_percentage
+# Formatting for election printout
 winning_candidate_summary = (
     f"-------------------------\n"
     f"Winner: {winning_candidate}\n"
